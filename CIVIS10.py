@@ -106,8 +106,10 @@ def scrape_article(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     
+    # Extracting article content
     content = ' '.join([p.text for p in soup.find_all('p')])
     
+    # Extracting metadata
     pub_date = soup.find("meta", {"name": "date"})["content"] if soup.find("meta", {"name": "date"}) else "Unknown"
     author = soup.find("meta", {"name": "author"})["content"] if soup.find("meta", {"name": "author"}) else "Unknown"
     domain = url.split("/")[2]
@@ -115,41 +117,68 @@ def scrape_article(url):
     return content, pub_date, author, domain
 
 # Main function to evaluate the webpage and return analysis
-def evaluate_page(url):
-    # Scrape the article
-    content, pub_date, author, domain = scrape_article(url)
-    
-    # Extract keywords from the content
-    keywords = extract_keywords(content)
-    
-    # Perform CRAAP test using extracted keywords
-    currency_analysis = assess_currency(pub_date)
-    relevance_analysis = assess_relevance(keywords, content)
-    authority_analysis = assess_authority(author, domain)
-    accuracy_analysis = assess_accuracy(content)
-    purpose_analysis = assess_purpose(content)
-    
-    # Perform sentiment and bias analysis
-    sentiment, bias = analyze_sentiment_and_bias(content)
-    
-    # Combine the analyses to form the final report
-    analysis_report = {
-        "Currency": currency_analysis,
-        "Relevance": relevance_analysis,
-        "Authority": authority_analysis,
-        "Accuracy": accuracy_analysis,
-        "Purpose": purpose_analysis,
-        "Sentiment": f"The overall sentiment of the content is: {sentiment}.",
-        "Bias": bias,
-    }
-    
-    return analysis_report
+def main():
+    try:
+        print("Starting CIVIS10 algorithm...")
 
-# Example usage
-url = "https://www.nytimes.com/2025/02/04/us/politics/trump-gaza-strip-netanyahu.html"
+        url = "https://example.com/some-article"  # Ensure this URL is valid for your test
 
-analysis = evaluate_page(url)
+        # Scrape the article
+        print("Starting web scraping...")
+        content, pub_date, author, domain = scrape_article(url)
+        print("Web scraping complete!")
 
-# Print the analysis report
-for criterion, analysis_text in analysis.items():
-    print(f"{criterion}: {analysis_text}\n")
+        # Extract keywords from the content
+        print("Extracting keywords...")
+        keywords = extract_keywords(content)
+        print(f"Extracted Keywords: {keywords}")
+
+        # Apply CRAAP test
+        print("Assessing Currency...")
+        currency_analysis = assess_currency(pub_date)
+        print(f"Currency analysis: {currency_analysis}")
+
+        print("Assessing Relevance...")
+        relevance_analysis = assess_relevance(keywords, content)
+        print(f"Relevance analysis: {relevance_analysis}")
+
+        print("Assessing Authority...")
+        authority_analysis = assess_authority(author, domain)
+        print(f"Authority analysis: {authority_analysis}")
+
+        print("Assessing Accuracy...")
+        accuracy_analysis = assess_accuracy(content)
+        print(f"Accuracy analysis: {accuracy_analysis}")
+
+        print("Assessing Purpose...")
+        purpose_analysis = assess_purpose(content)
+        print(f"Purpose analysis: {purpose_analysis}")
+
+        # Perform sentiment and bias analysis
+        print("Analyzing sentiment and bias...")
+        sentiment, bias = analyze_sentiment_and_bias(content)
+        print(f"Sentiment: {sentiment}, Bias: {bias}")
+
+        # Combine the analyses to form the final report
+        analysis_report = {
+            "Currency": currency_analysis,
+            "Relevance": relevance_analysis,
+            "Authority": authority_analysis,
+            "Accuracy": accuracy_analysis,
+            "Purpose": purpose_analysis,
+            "Sentiment": f"The overall sentiment of the content is: {sentiment}.",
+            "Bias": bias,
+        }
+
+        # Output the final analysis
+        print("Analysis complete! Final report:")
+        print(analysis_report)
+
+        print("CIVIS10 algorithm finished.")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+# Call the main function
+if __name__ == "__main__":
+    main()
