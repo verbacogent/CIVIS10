@@ -3,14 +3,14 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.8
-  - requests=2.28.1
-  - beautifulsoup4=4.11.1
-  - sentence-transformers=2.2.2
-  - vaderSentiment=3.3.2
-  - textblob=0.15.3
-  - spacy=3.4.1
-  - numpy=1.24.0
-  - pip
+  - python=3.8  # Or your preferred Python version (3.7, 3.9, etc.)
+  - requests=2.28.1  # Or the latest version
+  - beautifulsoup4=4.11.1  # Or the latest version
+  - sentence-transformers=2.2.2  # Or the latest version
+  - vaderSentiment=3.3.2  # Or the latest version
+  - textblob=0.15.3  # Or the latest version
+  - numpy=1.24.0  # Or the latest version
+  - nltk  # Install nltk using conda
+
   - pip:
-      - transformers
+    - transformers # install the transformers package
