@@ -1,0 +1,23 @@
+# Python bytecode files
+__pycache__/
+*.pyc
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Conda environments
+env/
+.conda/
+
+# Log files
+*.log
+
+# OS-specific files
+.DS_Store
+
+# IDE or editor-specific files
+.vscode/
+.idea/
+
+# Sensitive configuration files
+.env
